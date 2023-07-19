@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.android.customview"
+    namespace = "com.android.custom.views"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.android.customview"
+        applicationId = "com.android.custom.views"
         minSdk = 33
         targetSdk = 33
         versionCode = 1
@@ -32,7 +32,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    dataBinding {enable  = true}
+    dataBinding { enable = true }
 }
 
 dependencies {
