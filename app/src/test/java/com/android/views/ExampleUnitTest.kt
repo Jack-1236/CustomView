@@ -1,4 +1,4 @@
-package com.android.customview
+package com.android.views
 
 import org.junit.Test
 
