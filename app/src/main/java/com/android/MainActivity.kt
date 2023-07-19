@@ -1,4 +1,4 @@
-package com.android.views
+package com.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
                         delay(300)
                     }
                 }
-
         }
 
 

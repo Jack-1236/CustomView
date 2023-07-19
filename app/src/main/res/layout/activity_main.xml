@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <com.android.views.views.BatteryMeterView
+        <com.android.views.BatteryMeterView
             android:layout_width="132dp"
             android:layout_height="45dp"
             android:id="@+id/main_battery"
