@@ -1,0 +1,493 @@
+Index: app/src/main/res/values/attrs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/attrs.xml b/app/src/main/res/values/attrs.xml
+new file mode 100644
+--- /dev/null	(date 1689665932626)
++++ b/app/src/main/res/values/attrs.xml	(date 1689665932626)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <declare-styleable name="BatteryMeterView">
++        <attr name="charging" format="boolean" />
++        <attr name="warning_level" format="integer" />
++        <attr name="battery_level" format="integer" />
++        <attr name="normal_fill_color" format="color" />
++        <attr name="warning_fill_color" format="color" />
++        <attr name="background_fill_color" format="color" />
++        <attr name="battery_head_color" format="color" />
++        <attr name="charging_color" format="color" />
++        <attr name="text_color" format="color" />
++    </declare-styleable>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".MainActivity\">\r\n\r\n    <TextView\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Hello World!\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	(revision 78766d34bac89b8ca424472e3433742ad944ac27)
++++ b/app/src/main/res/layout/activity_main.xml	(date 1689675485598)
+@@ -1,18 +1,14 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     tools:context=".MainActivity">
+ 
+-    <TextView
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Hello World!"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
++    <com.android.customview.views.BatteryMeterView
++        android:layout_width="91dp"
++        android:layout_height="43dp"
++        android:layout_centerInParent="true" />
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/android/customview/views/BatteryMeterView.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.android.customview.views\r\rimport android.content.Context\rimport android.graphics.Color\rimport android.graphics.Rect\rimport android.util.AttributeSet\rimport android.view.View\r\r/**\r * Description : 自定义电池控件\r *\r * Author     : TAN\r *\r * Time       : 2023/7/18 13:49\r */\rclass BatteryMeterView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {\r\r\r    companion object {\r        /** 默认充电状态*/\r        private const val DEFAULT_CHARGING_STATE = false\r\r        /**默认电池电量*/\r        private const val DEFAULT_BATTERY_LEVEL = 70\r\r        /**默认警告级别*/\r        private const val DEFAULT_WARNING_LEVEL = 30\r\r        /**默认电池电量颜色*/\r        private const val DEFAULT_BATTERY_LEVEL_COLOR = Color.GREEN\r\r        /**默认警告颜色*/\r        private const val DEFAULT_WARNING_COLOR = Color.RED\r\r        /**默认背景颜色*/\r        private const val DEFAULT_BACKGROUND_COLOR = Color.LTGRAY\r\r        /**默认电池头颜色*/\r        private const val DEFAULT_BATTERY_HEAD_COLOR = Color.DKGRAY\r\r        /**默认文本颜色*/\r        private const val DEFAULT_TEXT_COLOR = Color.DKGRAY\r\r        /**默认充电颜色*/\r        private const val DEFAULT_CHARGING_COLOR = Color.DKGRAY\r\r        /**文字大小比例*/\r        private const val TEXT_SIZE_RATIO = 0.5f\r\r    }\r\r    //电池尺寸\r    private var contentHeight = 0\r    private var contentWidth = 0\r    private var batteryHeadWidth = 0\r    private var mainContentOffset = 20\r\r    //形状\r    private val backgroundRect = Rect()\r\r    private val batteryLevelRect = Rect()\r\r\r\r\r}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/android/customview/views/BatteryMeterView.kt b/app/src/main/java/com/android/customview/views/BatteryMeterView.kt
+--- a/app/src/main/java/com/android/customview/views/BatteryMeterView.kt	(revision 78766d34bac89b8ca424472e3433742ad944ac27)
++++ b/app/src/main/java/com/android/customview/views/BatteryMeterView.kt	(date 1689677802333)
+@@ -1,10 +1,19 @@
+ package com.android.customview.views
+ 
+ import android.content.Context
++import android.graphics.Canvas
+ import android.graphics.Color
++import android.graphics.Paint
++import android.graphics.Path
++import android.graphics.PorterDuff
+ import android.graphics.Rect
++import android.graphics.RectF
+ import android.util.AttributeSet
+ import android.view.View
++import androidx.annotation.CheckResult
++import androidx.annotation.ColorInt
++import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
++import com.android.customview.R
+ 
+ /**
+  * Description : 自定义电池控件
+@@ -47,20 +56,336 @@
+         /**文字大小比例*/
+         private const val TEXT_SIZE_RATIO = 0.5f
+ 
++        /**背景内边距*/
++        private const val DEFAULT_BACKGROUND_PADDING = 12
++
++        /**背景描边偏移量*/
++        private const val DEFAULT_BACKGROUND_STROKE_OFFSET = 10
++
++
+     }
+ 
+-    //电池尺寸
++
++    /**控件的内容高度*/
+     private var contentHeight = 0
++
++    /**控件的内容宽度*/
+     private var contentWidth = 0
++
++    /**电池头部的宽度*/
+     private var batteryHeadWidth = 0
++
+     private var mainContentOffset = 20
+ 
+-    //形状
++    /**X轴起始点偏移量*/
++    private var backgroundOffset = 2
++
++
++    /**背景形状*/
+     private val backgroundRect = Rect()
+ 
++    /**背景描边*/
++    private val backgroundStrokeRect = Rect()
++
++    /**电池电量形状*/
+     private val batteryLevelRect = Rect()
+ 
++    /**电池他形状*/
++    private val batteryHeadRect = Rect()
++
++
++    /**充电标志路径*/
++    private val chargingLogoPath = Path()
++
++
++    /**背景画笔*/
++    private val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG)
++
++    /**描边*/
++    private val backgroundPaintStroke = Paint(Paint.ANTI_ALIAS_FLAG)
++
++    /**文本画笔*/
++    private val textValuePaint = Paint(Paint.ANTI_ALIAS_FLAG)
++
++    /**电池头部画笔*/
++    private val batteryHeadPaint = Paint(Paint.ANTI_ALIAS_FLAG)
++
++    /**电池电量画笔*/
++    private val batteryLevelPaint = Paint(Paint.ANTI_ALIAS_FLAG)
++
++    /**电池充电标志画笔*/
++    private val chargingLogoPaint = Paint(Paint.ANTI_ALIAS_FLAG)
++
++    var warningLevel: Int = DEFAULT_WARNING_LEVEL
++
++    var batteryLevelColor: Int = DEFAULT_BATTERY_LEVEL_COLOR
++        set(@ColorInt color) {
++            field = color
++            batteryLevelPaint.color = color
++            invalidate()//刷新UI
++        }
++
++    var warningColor: Int = DEFAULT_WARNING_COLOR
++        set(@ColorInt color) {
++            field = color
++            batteryLevelPaint.color = color
++            invalidate()//刷新UI
++        }
++
++
++    var backgroundRectColor: Int = DEFAULT_BACKGROUND_COLOR
++        set(@ColorInt color) {
++            field = color
++            backgroundPaint.color = color
++            invalidate()//刷新UI
++        }
++
++    var batteryHeaderColor: Int = DEFAULT_BATTERY_HEAD_COLOR
++        set(@ColorInt color) {
++            field = color
++            batteryHeadPaint.color = color
++            invalidate()//刷新UI
++        }
++
++    var chargingColor: Int = DEFAULT_CHARGING_COLOR
++        set(@ColorInt color) {
++            field = color
++            chargingLogoPaint.color = color
++            invalidate()//刷新UI
++        }
++
++    var textColor: Int = DEFAULT_TEXT_COLOR
++        set(@ColorInt color) {
++            field = color
++            textValuePaint.color = color
++            invalidate()//刷新UI
++        }
++
++    var isCharging: Boolean = DEFAULT_CHARGING_STATE
++        @CheckResult
++        get() = field
++        set(value) {
++            field = value
++            invalidate()
++        }
++
++    var batteryLevel: Int = DEFAULT_BATTERY_LEVEL
++        @CheckResult
++        get() = field
++        set(level) {
++            field = when {
++                level > 100 -> 100
++                level < 0 -> 0
++                else -> level
++            }
++            if (field <= warningLevel) {
++                batteryLevelPaint.color = warningColor
++            } else {
++                batteryLevelPaint.color = batteryLevelColor
++            }
++            invalidate()
++        }
++
++    init {
++        parseAttr(attrs)
++
++        batteryLevelPaint.apply {
++            style = Paint.Style.FILL
++            color = batteryLevelColor
++        }
++
++        backgroundPaint.apply {
++            style = Paint.Style.FILL
++            color = backgroundRectColor
++        }
++
++        backgroundPaintStroke.apply {
++            style = Paint.Style.STROKE
++            strokeWidth = 15F
++            color = Color.BLACK
++        }
++
++        batteryHeadPaint.apply {
++            style = Paint.Style.FILL
++            color = batteryHeaderColor
++        }
++
++        chargingLogoPaint.apply {
++            style = Paint.Style.FILL_AND_STROKE
++            color = chargingColor
++            strokeWidth = 5f
++        }
++
++        textValuePaint.apply {
++            textAlign = Paint.Align.CENTER
++            color = textColor
++        }
++    }
++
++    override fun onSizeChanged(width: Int, height: Int, oldw: Int, oldh: Int) {
++
++        contentWidth = width - paddingStart - paddingEnd
++
++        contentHeight = height - paddingTop - paddingBottom
++
++        textValuePaint.textSize = contentHeight * TEXT_SIZE_RATIO
++
++        batteryHeadWidth = contentWidth / 12
++
++
++        backgroundStrokeRect.set(
++            DEFAULT_BACKGROUND_STROKE_OFFSET,
++            DEFAULT_BACKGROUND_STROKE_OFFSET,
++            contentWidth - (DEFAULT_BACKGROUND_STROKE_OFFSET + batteryHeadWidth + DEFAULT_BACKGROUND_PADDING),
++            contentHeight - DEFAULT_BACKGROUND_STROKE_OFFSET
++        )
++
++
++        val backgroundLeft = (backgroundStrokeRect.left + DEFAULT_BACKGROUND_PADDING)
++        val backgroundTop = (backgroundStrokeRect.top + DEFAULT_BACKGROUND_PADDING)
++        backgroundRect.set(
++            backgroundLeft,
++            backgroundTop,
++            backgroundStrokeRect.right - DEFAULT_BACKGROUND_PADDING,
++            backgroundStrokeRect.bottom - DEFAULT_BACKGROUND_PADDING
++        )
++
++
++        batteryHeadRect.set(
++            backgroundStrokeRect.right + DEFAULT_BACKGROUND_PADDING,
++            backgroundRect.top + ((contentHeight - ((contentHeight - backgroundRect.bottom) + backgroundRect.top)) / 10f).toInt(),
++            backgroundRect.left + 5 + backgroundRect.right + batteryHeadWidth,
++            backgroundRect.top + ((contentHeight - ((contentHeight - backgroundRect.bottom) + backgroundRect.top)) / 10f).toInt() * 9
++        )
++
++
++        batteryLevelRect.set(
++            backgroundLeft,
++            backgroundTop,
++            (batteryLevel * ((backgroundStrokeRect.right - DEFAULT_BACKGROUND_PADDING) / 100.toDouble())).toInt(),
++            backgroundStrokeRect.bottom - DEFAULT_BACKGROUND_PADDING
++        )
++
++
++    }
++
++    override fun onDraw(canvas: Canvas) {
++        // Draw the background body of battery view
++        drawBackground(canvas)
++        // Draw the head of battery
++        drawBatteryHead(canvas)
++        // Draw the current battery level
++        drawBatteryLevel(canvas)
+ 
++//        if (isCharging) {
++//            drawChargingLogo(canvas)
++//        } else {
++//            drawCurrentBatteryValueText(canvas)
++//        }
++    }
+ 
+ 
++    private fun drawBackground(canvas: Canvas) {
++        canvas.drawRoundRect(RectF(backgroundRect), 10f, 10f, backgroundPaint)
++        canvas.drawRoundRect(RectF(backgroundStrokeRect), 20f, 20f, backgroundPaintStroke)
++    }
++
++    private fun drawBatteryHead(canvas: Canvas) {
++        canvas.drawRoundRect(RectF(batteryHeadRect), 7f, 7f, batteryHeadPaint)
++    }
++
++    private fun drawBatteryLevel(canvas: Canvas) {
++        if (batteryLevel <= warningLevel) {
++            batteryLevelPaint.color = warningColor
++        } else {
++            batteryLevelPaint.color = batteryLevelColor
++        }
++
++        canvas.drawRoundRect(RectF(batteryLevelRect), 10f, 10f, batteryLevelPaint)
++
++    }
++
++    private fun drawChargingLogo(canvas: Canvas) {
++        VectorDrawableCompat.create(
++            context.resources,
++            R.drawable.ic_charging_bolt,
++            null
++        )?.apply {
++            setBounds(
++                backgroundRect.left + contentWidth / 4,
++                backgroundRect.top + contentHeight / 4,
++                backgroundRect.right - contentWidth / 4,
++                backgroundRect.bottom - contentHeight / 4
++            )
++            setColorFilter(chargingColor, PorterDuff.Mode.SRC_IN)
++            draw(canvas)
++        }
++    }
++
++    private fun drawCurrentBatteryValueText(canvas: Canvas) {
++        val text = if (batteryLevel == 0) "Empty" else batteryLevel.toString()
++        canvas.drawText(
++            text,
++            (contentWidth * 0.45).toFloat(),
++            (contentHeight * 0.7).toFloat(),
++            textValuePaint
++        )
++    }
++
++
++    private fun drawBatteryEmptyStatus(canvas: Canvas) {
++        canvas.drawText(
++            "Empty",
++            (contentWidth * 0.45).toFloat(),
++            (contentHeight * 0.7).toFloat(),
++            textValuePaint
++        )
++        //backgroundRect corners made rounded to avoid coming out of backgroundPaintStroke
++        canvas.drawRoundRect(RectF(backgroundRect), 50f, 50f, backgroundPaint)
++        canvas.drawRoundRect(RectF(backgroundRect), 50f, 50f, backgroundPaintStroke)
++
++    }
++
++    private fun parseAttr(attrs: AttributeSet?) {
++        val typedArray = context.obtainStyledAttributes(
++            attrs, R.styleable.BatteryMeterView, 0, 0
++        )
++        isCharging = typedArray.getBoolean(
++            R.styleable.BatteryMeterView_charging,
++            DEFAULT_CHARGING_STATE
++        )
++        batteryLevel = typedArray.getInteger(
++            R.styleable.BatteryMeterView_battery_level,
++            DEFAULT_BATTERY_LEVEL
++        )
++        warningLevel = typedArray.getInteger(
++            R.styleable.BatteryMeterView_warning_level,
++            DEFAULT_WARNING_LEVEL
++        )
++        batteryLevelColor = typedArray.getColor(
++            R.styleable.BatteryMeterView_normal_fill_color,
++            DEFAULT_BATTERY_LEVEL_COLOR
++        )
++        backgroundRectColor = typedArray.getColor(
++            R.styleable.BatteryMeterView_background_fill_color,
++            DEFAULT_BACKGROUND_COLOR
++        )
++        warningColor = typedArray.getColor(
++            R.styleable.BatteryMeterView_warning_fill_color,
++            DEFAULT_WARNING_COLOR
++        )
++        batteryHeaderColor = typedArray.getColor(
++            R.styleable.BatteryMeterView_battery_head_color,
++            DEFAULT_BATTERY_HEAD_COLOR
++        )
++        chargingColor = typedArray.getColor(
++            R.styleable.BatteryMeterView_charging_color,
++            DEFAULT_CHARGING_COLOR
++        )
++        textColor = typedArray.getColor(
++            R.styleable.BatteryMeterView_text_color,
++            DEFAULT_TEXT_COLOR
++        )
++        typedArray.recycle()
++    }
+ }
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"jbr-17\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 78766d34bac89b8ca424472e3433742ad944ac27)
++++ b/.idea/gradle.xml	(date 1689678024457)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"jbr-17\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 78766d34bac89b8ca424472e3433742ad944ac27)
++++ b/.idea/misc.xml	(date 1689735929305)
+@@ -1,4 +1,3 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+Index: app/src/main/res/drawable/ic_charging_bolt.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_charging_bolt.xml b/app/src/main/res/drawable/ic_charging_bolt.xml
+new file mode 100644
+--- /dev/null	(date 1689666468199)
++++ b/app/src/main/res/drawable/ic_charging_bolt.xml	(date 1689666468199)
+@@ -0,0 +1,18 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="43"
++    android:viewportHeight="16">
++    <path
++        android:fillColor="#484848"
++        android:fillType="evenOdd"
++        android:pathData="M0.5642,13.6731l23.3952,-6.015l0,-7.158z"
++        android:strokeWidth="1"
++        android:strokeColor="#00000000" />
++    <path
++        android:fillColor="#484848"
++        android:fillType="evenOdd"
++        android:pathData="M42.3414,2.1346l-23.3952,6.015l-0,7.1628z"
++        android:strokeWidth="1"
++        android:strokeColor="#00000000" />
++</vector>
+\ No newline at end of file
