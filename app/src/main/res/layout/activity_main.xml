@@ -7,16 +7,22 @@
 
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+       android:orientation="vertical"
         tools:context=".MainActivity">
 
         <com.android.views.BatteryMeterView
+            android:id="@+id/main_battery"
             android:layout_width="132dp"
             android:layout_height="45dp"
-            android:id="@+id/main_battery"
-            android:layout_centerInParent="true" />
+            android:visibility="gone" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/main_progress"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+           />
+    </LinearLayout>
 </layout>

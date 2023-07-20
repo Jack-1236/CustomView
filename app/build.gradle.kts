@@ -1,3 +1,6 @@
+import org.apache.tools.ant.util.JavaEnvUtils.VERSION_11
+import org.apache.tools.ant.util.JavaEnvUtils.VERSION_1_8
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -10,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.android.custom.views"
-        minSdk = 33
+        minSdk = 32
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -31,8 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    dataBinding { enable = true }
+    dataBinding {
+        enable = true
+    }
 }
 
 dependencies {
